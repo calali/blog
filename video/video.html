@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯前端生成视频缩略图</title>
+    <style>
+        video{
+            width:200px;
+            height:auto;
+        }
+        img{
+            width: 30px;
+            height:auto;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="file">
+    <video src="" controls></video>
+    <canvas></canvas>
+    <div class="">
+        <p>缩略图列表</p>
+        <div id="list">
+        </div>
+    </div>
+    <script>
+        //获取上传的视频的本地预览地址
+        const _document = document
+        let videoSrc = null
+        let videoWidth = 0
+        let videoHeight = 0
+        let duration = 0
+
+        const file = _document.querySelector("#file")
+        const video = _document.querySelector("video")
+
+        file.addEventListener('change',function(){
+            videoSrc = window.URL.createObjectURL(this.files[0])
+            video.setAttribute("src",videoSrc)
+        })
+        video.addEventListener('durationchange',function(){
+           
+            duration = this.duration
+            videoWidth = this.videoWidth
+            videoHeight = this.videoHeight
+            const canvas = _document.querySelector('canvas')
+            canvas.width = videoWidth
+            canvas.height = videoHeight
+            getVideoImage()
+        })
+
+    
+        //canvas截取视频某个时间的图形
+        function getVideoImage(){
+            const canvas = _document.querySelector('canvas')
+            const canvasCtx = canvas.getContext('2d');
+            canvasCtx.drawImage(video, 0, 0, videoWidth, videoHeight)
+            const cover = canvas.toDataURL('image/jpeg', 1.0)
+            list.push(cover)
+            if(currentTime <= duration){
+                _document.querySelector('video').currentTime = currentTime
+                currentTime++
+            }else{
+                renderImages()
+            }
+        }
+
+        //视频ready后开始截取
+        let currentTime = 0
+        let list = []
+        video.addEventListener('timeupdate',function(){
+            if(duration == 0){
+               return 
+            }
+            getVideoImage()
+        })
+        
+        //渲染图片
+        const renderImages = ()=>{
+            const fragment = document.createDocumentFragment()
+            for(let i = 0,l = list.length;i < l;i++){
+                let image = document.createElement('img')
+                image.src = list[i]
+                fragment.appendChild(image)
+            }
+            const listDom = _document.querySelector('#list')
+            listDom.appendChild(fragment)
+        }
+        
+    </script>
+</body>
+</html>
