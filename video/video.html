@@ -41,17 +41,14 @@
             video.setAttribute("src",videoSrc)
         })
         video.addEventListener('durationchange',function(){
-           
             duration = this.duration
             videoWidth = this.videoWidth
             videoHeight = this.videoHeight
             const canvas = _document.querySelector('canvas')
             canvas.width = videoWidth
             canvas.height = videoHeight
-            getVideoImage()
         })
-
-    
+        
         //canvas截取视频某个时间的图形
         function getVideoImage(){
             const canvas = _document.querySelector('canvas')
@@ -61,7 +58,7 @@
             list.push(cover)
             if(currentTime <= duration){
                 _document.querySelector('video').currentTime = currentTime
-                currentTime++
+                currentTime ++
             }else{
                 renderImages()
             }
@@ -70,6 +67,11 @@
         //视频ready后开始截取
         let currentTime = 0
         let list = []
+        video.addEventListener('canplay',function(){
+            if(list.length === 0){
+                video.currentTime = currentTime
+            }
+        })
         video.addEventListener('timeupdate',function(){
             if(duration == 0){
                return 
