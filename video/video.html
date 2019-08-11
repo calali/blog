@@ -41,7 +41,6 @@
             video.setAttribute("src",videoSrc)
         })
         video.addEventListener('durationchange',function(){
-           
             duration = this.duration
             videoWidth = this.videoWidth
             videoHeight = this.videoHeight
@@ -59,12 +58,13 @@
             canvasCtx.drawImage(video, 0, 0, videoWidth, videoHeight)
             const cover = canvas.toDataURL('image/jpeg', 1.0)
             list.push(cover)
-            if(currentTime <= duration){
-                _document.querySelector('video').currentTime = currentTime
-                currentTime++
-            }else{
-                renderImages()
-            }
+            debugger
+            // if(currentTime <= duration){
+            //     _document.querySelector('video').currentTime = currentTime
+            //     currentTime++
+            // }else{
+            //     renderImages()
+            // }
         }
 
         //视频ready后开始截取
