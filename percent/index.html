@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas画圆环</title>
+    <style>
+        .container{
+            width:320px;
+            height:320px;
+            position: relative;
+            transform: scale(0.5,0.5)
+        }
+        canvas{
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+            <canvas id="canvas1" ref="canvas1" height="320px" width="320px"></canvas>
+            <canvas id="canvas2" ref="canvas2" height="320px" width="320px"></canvas>
+    </div>
+    <script>
+         var circleObj =  {
+          /* 圆心 */
+          x: 160,
+          y: 160,
+          /* 半径 */
+          radius: 130,
+          /* 环的宽度 */
+          lineWidth: 30,
+        }
+        var canvas1 = document.querySelector('#canvas1')
+        var canvas2 = document.querySelector('#canvas2')
+        var fullCircleAngle = Math.PI * 2 
+        function drawCircle(canvas, startAngle, endAngle, color) {
+            const circleObj = this.circleObj
+            const ctx = canvas.getContext('2d')
+            ctx.beginPath()
+            ctx.arc(circleObj.x, circleObj.y, circleObj.radius, startAngle, endAngle, false)
+            // 设定曲线粗细度
+            ctx.lineWidth = circleObj.lineWidth
+            // 给曲线着色
+            ctx.strokeStyle = color
+            // 连接处样式
+            ctx.lineCap = 'round'
+            // 给环着色
+            ctx.stroke()
+            ctx.closePath()
+        }
+        //先绘制一个完整的圆环
+        drawCircle(canvas1,0,fullCircleAngle,'green')
+        //再绘制一个随时间增加进度的
+        var percent = 0
+        var timer = setInterval(function(){
+            var startAngle = Math.PI * 2 * 0.75 - (percent) * Math.PI * 2 / 100
+            var endAngle = fullCircleAngle * 0.75
+            this.drawCircle(canvas2, startAngle, endAngle, 'red')
+            percent  = percent +2
+            if(percent > 100){
+                clearInterval(timer)
+            }
+        },500)
+    </script>
+</body>
+</html>
