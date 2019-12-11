@@ -15,8 +15,8 @@
 4.[h5 input,textarea采坑记录](https://github.com/liqiuhui/blog/issues/21)           
 5.[OPPO r11 app webview里H5页面尺寸错误问题排查](https://github.com/liqiuhui/blog/issues/20)           
 
-### 1.3适配
-
+### 1.3JavaScript基础知识
+1.[JavaScript基础之闭包](https://github.com/liqiuhui/blog/issues/28) 
 
 ### 1.4页面性能
 
@@ -28,6 +28,9 @@
 1.[JavaScript事件循环](https://github.com/liqiuhui/blog/issues/17)            
 
 ### 1.7 css预处理
+
+### 1.8 调试
+1.[好用的调试方法](https://github.com/liqiuhui/blog/issues/27) 
 
 ## 2.nodejs
 ### 2.1koa
