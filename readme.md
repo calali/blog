@@ -1,7 +1,7 @@
 ## 1、前端工程化
-1.[实现vue mvvm绑定](https://github.com/calali/mvvm)
-2.[一份vue项目的eslintrc文档说明](https://github.com/liqiuhui/blog/issues/25) 
-3.[eslint配置项的extends和plugins的区别](https://github.com/liqiuhui/blog/issues/26) 
+1.[实现vue mvvm绑定](https://github.com/calali/mvvm)            
+2.[一份vue项目的eslintrc文档说明](https://github.com/liqiuhui/blog/issues/25)             
+3.[eslint配置项的extends和plugins的区别](https://github.com/liqiuhui/blog/issues/26)             
 
 ## 2、页面效果
 1.[超级简单、一看就懂的绘制圆环进度](https://github.com/liqiuhui/blog/issues/4)            
@@ -13,10 +13,10 @@
 7.[react native webview采坑记录](https://github.com/liqiuhui/blog/issues/22)        
 
 ## 3、JavaScript基础知识
-1.[JavaScript基础之闭包](https://github.com/liqiuhui/blog/issues/28) 
-2.[JavaScript基础之this是什么](https://github.com/liqiuhui/blog/issues/29)
-3.[JavaScript里的prototype、__proto__和constructor](https://github.com/liqiuhui/blog/issues/30)
-4.[JavaScript事件循环](https://github.com/liqiuhui/blog/issues/17)  
+1.[JavaScript基础之闭包](https://github.com/liqiuhui/blog/issues/28)             
+2.[JavaScript基础之this是什么](https://github.com/liqiuhui/blog/issues/29)            
+3.[JavaScript里的prototype、__proto__和constructor](https://github.com/liqiuhui/blog/issues/30)            
+4.[JavaScript事件循环](https://github.com/liqiuhui/blog/issues/17)              
 
 ## 4、nodejs
 1.[用node.js、koa、mysql编写博客平台](https://github.com/calali/node-blog-exericese)            
