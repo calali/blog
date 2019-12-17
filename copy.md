@@ -1,8 +1,8 @@
 javascript之深拷贝的实现
 
 ### 深浅拷贝
-JavaScript里面有7种数据类型：undefined null boolean number string symbol object。
-其中undefined null boolean number string 是基础数据类型，它们的拷贝只能是值的拷贝。
+JavaScript里面有7种数据类型：undefined,null,boolean,number,string,symbol,object。
+其中undefined,null,boolean,number,string是基础数据类型，它们的拷贝只能是值的拷贝。
 object是复杂数据类型，有深浅拷贝的区分。拷贝后指向同一个引用地址则是浅拷贝，只复制值且引用地址不同的是深拷贝。
 
 源对象称为a,目标对象称为b。    
@@ -79,7 +79,7 @@ obj1的t1和t2指向同一个引用，因此同时改变。obj2的t1和t2没有�
 var obj1 = {  a:{b:1} };
 var obj2 = Object.assign({},obj1) 
 obj1.a.b = 2
-console.log(obj2)
+console.log(obj2) // { a: { b: 2 } }
 ```
 Object.assign只支持第一层的深拷贝，后续都是浅拷贝了。
 
@@ -89,7 +89,7 @@ Object.assign只支持第一层的深拷贝，后续都是浅拷贝了。
     1. 无论对象嵌套多少层，都可以实现深拷贝
     2. 可以处理reg、function、symbol等数据类型
     3. 可以处理循环引用
-    4. 相同的引用按照引用复制，而不是重复复制。
+    4. 相同的引用按照引用复制，而不是复制值。
 
 1. 无论对象嵌套多少层，都可以实现深拷贝
 对对象值进行循环复制，当对象值是对象时，递归直到值不是对象实现多层数据拷贝。
@@ -114,10 +114,12 @@ function clone(source) {
     return target;
 }
 var obj1 = {  a:{b:1} };
-var obj2 =clone(obj1)
+var obj2 = clone(obj1)
 obj1.a.b = 2
 console.log(obj2) // { a: { b: 1 } }
 ```
+由此可见clone方法成功实现多层嵌套的拷贝。
+
 我们用以下代码检测clone方法
 ```javascript
 function createData(deep, breadth) {
@@ -204,92 +206,21 @@ console.log(obj4) // 正确打印结果
 ```
 
 2. 可以处理reg、function、symbol等数据类型
+https://juejin.im/post/5d6aa4f96fb9a06b112ad5b1#heading-7
 
 3. 可以处理循环引用
+weakmap实现
 
 4. 相同的引用按照引用复制，而不是重复复制。
 ```javascript
-function cloneForce(x) {
-    // =============
-    const uniqueList = []; // 用来去重
-    // =============
-
-    let root = {};
-
-    // 循环数组
-    const loopList = [
-        {
-            parent: root,
-            key: undefined,
-            data: x,
-        }
-    ];
-
-    while(loopList.length) {
-        // 深度优先
-        const node = loopList.pop();
-        const parent = node.parent;
-        const key = node.key;
-        const data = node.data;
-
-        // 初始化赋值目标，key为undefined则拷贝到父元素，否则拷贝到子元素
-        let res = parent;
-        if (typeof key !== 'undefined') {
-            res = parent[key] = {};
-        }
-        
-        // =============
-        // 数据已经存在
-        let uniqueData = find(uniqueList, data);
-        if (uniqueData) {
-            parent[key] = uniqueData.target;
-            break; // 中断本次循环
-        }
-
-        // 数据不存在
-        // 保存源数据，在拷贝数据中对应的引用
-        uniqueList.push({
-            source: data,
-            target: res,
-        });
-        // =============
-    
-        for(let k in data) {
-            if (data.hasOwnProperty(k)) {
-                if (typeof data[k] === 'object') {
-                    // 下一次循环
-                    loopList.push({
-                        parent: res,
-                        key: k,
-                        data: data[k],
-                    });
-                } else {
-                    res[k] = data[k];
-                }
-            }
-        }
-    }
-
-    return root;
-}
-
-function find(arr, item) {
-    for(let i = 0; i < arr.length; i++) {
-        if (arr[i].source === item) {
-            return arr[i];
-        }
-    }
-
-    return null;
-}
-
+等待阅读完loadash的源码的deepclone方法后继续完善。
 var obj1 = {  a:123 }; 
 var obj = {name:'aaaaa'};
 obj1.t1 = obj;
 obj1.t2 = obj;
 var obj2 = cloneForce(obj1); 
 obj1.t1.name = 'change'; 
-obj2.t1.name  = 'change';
+obj2.t1.name  = 'change2';
 console.log(obj1); // { a: 123, t1: { name: 'change' }, t2: { name: 'change' } }
 console.log(obj2); // { a: 123, t1: { name: 'change' }, t2: { name: 'change' } }
 ```
@@ -301,3 +232,4 @@ console.log(obj2); // { a: 123, t1: { name: 'change' }, t2: { name: 'change' } }
 
 ### 参考资料
 https://segmentfault.com/a/1190000016672263
+https://juejin.im/post/5ddb2bdbe51d4523546677ec#heading-9

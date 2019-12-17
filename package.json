@@ -1,0 +1,23 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "1.[实现vue mvvm绑定](https://github.com/calali/mvvm)             2.[一份vue项目的eslintrc文档说明](https://github.com/liqiuhui/blog/issues/25)              3.[eslint配置项的extends和plugins的区别](https://github.com/liqiuhui/blog/issues/26)",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liqiuhui/blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liqiuhui/blog/issues"
+  },
+  "homepage": "https://github.com/liqiuhui/blog#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}

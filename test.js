@@ -1,83 +1,29 @@
-function cloneForce(x) {
-    // =============
-    const uniqueList = []; // 用来去重
-    // =============
-
-    let root = {};
-
-    // 循环数组
-    const loopList = [
-        {
-            parent: root,
-            key: undefined,
-            data: x,
-        }
-    ];
-
-    while(loopList.length) {
-        // 深度优先
-        const node = loopList.pop();
-        const parent = node.parent;
-        const key = node.key;
-        const data = node.data;
-
-        // 初始化赋值目标，key为undefined则拷贝到父元素，否则拷贝到子元素
-        let res = parent;
-        if (typeof key !== 'undefined') {
-            res = parent[key] = {};
-        }
-        
-        // =============
-        // 数据已经存在
-        let uniqueData = find(uniqueList, data);
-        if (uniqueData) {
-            parent[key] = uniqueData.target;
-            break; // 中断本次循环
-        }
-
-        // 数据不存在
-        // 保存源数据，在拷贝数据中对应的引用
-        uniqueList.push({
-            source: data,
-            target: res,
-        });
-        // =============
-    
-        for(let k in data) {
-            if (data.hasOwnProperty(k)) {
-                if (typeof data[k] === 'object') {
-                    // 下一次循环
-                    loopList.push({
-                        parent: res,
-                        key: k,
-                        data: data[k],
-                    });
-                } else {
-                    res[k] = data[k];
-                }
+let hasObj = [];
+function referCopy(obj) {
+    let copy = {};
+    hasObj.push(obj);
+    for (let i in obj) {
+        if (typeof obj[i] === 'object') {
+            let index = hasObj.indexOf(obj[i]);
+            if (index > -1) {
+                console.log('存在循环引用或属性引用了相同对象');
+                // 如果已存在，证明引用了相同对象，那么无论是循环引用还是重复引用，我们返回引用就可以了
+                copy[i] = hasObj[index];
+            } else {
+                copy[i] = referCopy(obj[i]);
             }
+        } else {
+            copy[i] = obj[i];
         }
     }
-
-    return root;
+    return copy;
 }
-
-function find(arr, item) {
-    for(let i = 0; i < arr.length; i++) {
-        if (arr[i].source === item) {
-            return arr[i];
-        }
-    }
-
-    return null;
-}
-
-var obj1 = {  a:123}; 
+var obj1 = {  a:123 }; 
 var obj = {name:'aaaaa'};
 obj1.t1 = obj;
 obj1.t2 = obj;
-obj1.c = obj1
 
-var obj2 = cloneForce(obj1); 
+var obj2 = referCopy(obj1); 
 obj1.t1.name = 'change'; 
-console.log(obj2)
+obj2.t1.name  = 'change2';
+console.log(obj2);
