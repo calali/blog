@@ -21,6 +21,8 @@
 ## 4、nodejs
 1.[用node.js、koa、mysql编写博客平台](https://github.com/calali/node-blog-exericese)            
 
+## 5、有趣的题目
+1.[如何计算一个对象的深度](https://github.com/liqiuhui/blog/issues/32)          
 
 ## 5、其他
 1.[算法概念学习](https://github.com/liqiuhui/blog/issues/16)          
